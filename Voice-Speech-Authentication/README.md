@@ -21,15 +21,15 @@ Downloading and extracting speech model
 * KK - KKBixby.wav (KaiKeng)
 
 
-## Enrollment (NOT available):
+## Enrollment :
 Enroll a new user using an audio file of his/her voice
 
 ``python voice_auth.py -t enroll -n "name of person" -f "audio.wav"``
 
  
-## Recognition (NOT available):
+## Recognition :
 Authenticate a user if it matches voice prints saved on the disk
 
-``python voice_auth.py -t recognize -f "audio.wav"``
+``python voice_auth.py -t recognize -n "name of person" -f "audio.wav"``
 
 
