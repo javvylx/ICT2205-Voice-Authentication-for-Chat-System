@@ -10,7 +10,9 @@ from scipy.spatial.distance import cdist, euclidean, cosine
 from vosk import Model, KaldiRecognizer, SetLogLevel
 from pydub import AudioSegment
 import wave
+import argparse
 from silence_tensorflow import silence_tensorflow
+from pathlib import Path
 silence_tensorflow()
 cred = credentials.Certificate("ict2205pt2-firebase-adminsdk-z8i1z-33c71fcd00.json")
 
@@ -95,8 +97,10 @@ def recognize(name, file):
         'databaseURL': 'https://ict2205pt2-default-rtdb.firebaseio.com/'
     })
     ref = db.reference("/")
-    fb_data = ref.child(name).get()
-
+    try:
+        fb_data = ref.child(name).get()
+    except:
+        print("Name does not exist!")
     fb_speech = fb_data.get('Speech')
     user_speech = speech_recognize(file)
 
@@ -136,5 +140,61 @@ def recognize(name, file):
         print("Score: ", min(list(distances.values())))
         exit()
 
-# enroll("JLBixby", os.path.abspath(r"C:\Users\chinb\Documents\GitHub\ict2205-crypto_pt2\Voice-Speech-Authentication\audio\JLBixby.wav"))
-recognize("KK_test1", os.path.abspath(r"C:\Users\chinb\Documents\GitHub\ict2205-crypto_pt2\Voice-Speech-Authentication\audio\KK_test1.wav"))
+def args():
+    parser = argparse.ArgumentParser()
+
+    parser.add_argument('-t', '--task',
+                       help='Task to do. Either "enroll" or "recognize"',
+                       required=True)
+    parser.add_argument( '-n', '--name',
+                        help='Specify the name of the person you want to enroll',
+                        required=True)
+    parser.add_argument('-f', '--file',
+                        help='Specify the audio file you want to enroll',
+                        type=lambda fn:file_choices(("csv","wav","flac"),fn),
+                       required=True)
+    ret = parser.parse_args()
+    return ret
+
+#Helper functions
+def file_choices(choices,filename):
+    ext = os.path.splitext(filename)[1][1:]
+    if ext not in choices:
+        parser.error("file doesn't end with one of {}".format(choices))
+    return filename
+
+def get_extension(filename):
+    return os.path.splitext(filename)[1][1:]
+
+if __name__ == '__main__':
+    try:
+        args = args()
+    except Exception as e:
+        print('An Exception occured, make sure the file format is .wav or .flac')
+        exit()
+    task = args.task
+    file = args.file
+    try:
+        name = args.name
+    except:
+        if task =="enroll" and get_extension(file)!= 'csv':
+            print("Missing Arguement, -n name is required for the user name")
+            exit()
+    try:
+        if Path(p.AUDIO_FILE+"/"+file).is_file():
+            file = p.AUDIO_FILE+"/"+file
+    except:
+        print("Audio not found")
+        exit()
+
+    if task == 'enroll':
+        enroll(name, file)
+    if task == 'recognize':
+        name = recognize(name, file)
+        speech = speech_recognize(file)
+        print("\nName: " + str(name) + " | Speech: " + str(speech))
+        exit()
+
+
+#enroll("JLBixby", os.path.abspath(r"C:\Users\chinb\Documents\GitHub\ict2205-crypto_pt2\Voice-Speech-Authentication\audio\JLBixby.wav"))
+#recognize("KK_test1", os.path.abspath(r"C:\Users\chinb\Documents\GitHub\ict2205-crypto_pt2\Voice-Speech-Authentication\audio\KK_test1.wav"))
