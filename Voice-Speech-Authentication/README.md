@@ -7,9 +7,14 @@ Python Package
 ``pip install -r requirements.txt``
 Non python Package (conda_requirements.txt)
 ``conda install -c anaconda pyaudio``
+Downloading and extracting speech model
+1. Go to "Project - Part 2/model" in Gdrive
+2. Download "vosk-model-en-us-aspire-0.2.zip"
+3. Extract the content inside the folder into github /model folder (If there is not /model folder, create it)
+4. Ensure there are 5 folders in /model
 
 
-# Enrolled Audio:
+# Enrolled Audio (under /audio):
 * BH - BHBixby.wav (BingHong)
 * CC - CCBixby.wav (Claudia)
 * JL - JLBixby.wav (Javier)
