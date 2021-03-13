@@ -1,0 +1,10 @@
+librosa
+scipy
+numpy
+python_speech_features
+keras
+tensorflow
+pandas
+silence_tensorflow
+vosk
+pydub
