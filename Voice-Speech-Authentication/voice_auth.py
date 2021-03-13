@@ -1,6 +1,6 @@
 #IMPORT SYSTEM FILES
-from silence_tensorflow import silence_tensorflow
-silence_tensorflow()
+# from silence_tensorflow import silence_tensorflow
+# silence_tensorflow()
 import argparse
 import scipy.io.wavfile as wavfile
 import traceback as tb
