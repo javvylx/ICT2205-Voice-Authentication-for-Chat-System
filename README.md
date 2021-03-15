@@ -20,11 +20,12 @@ To access webapp
 
 ## What is done
 - Basic Flask infrastructure
+- Local login 
 - Session Management
 - Simple chat room capabilities with messages
 - Error Handling for chat room
-- Standalone Voice Authentication (To be integrated)
-- Standalone Login/Registration (To be integrated)
+- Standalone Voice Authentication -- BH/KK (To be integrated)
+- Standalone Login/Registration -- Javier (To be integrated)
 
 ## TBD
 - Integration with Firebase for login/registration
