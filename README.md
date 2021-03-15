@@ -1,6 +1,9 @@
 # ict2205-crypto_pt2
 
 ## Flask-based Chat service 
+Before running webapp
+
+    pip install -r requirements.txt
 
 To run in Windows
 
