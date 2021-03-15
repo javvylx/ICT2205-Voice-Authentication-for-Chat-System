@@ -20,10 +20,13 @@ To access webapp
 
 ## What is done
 - Basic Flask infrastructure
-- Local login 
-- Session Management
+    - Local login 
+    - Error handling / Session Management
 - Simple chat room capabilities with messages
-- Error Handling for chat room
+    - Create chat room option
+    - Join chat room option
+    - Password authentication to enter room (in plain text currently)
+    - Error handling / session management for chat room
 - Standalone Voice Authentication -- BH/KK (To be integrated)
 - Standalone Login/Registration -- Javier (To be integrated)
 
