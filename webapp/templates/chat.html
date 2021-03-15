@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <title>Flask Intro - login page</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!--Link to CSS -->
+  <link href="../static/bootstrap.min.css" rel="stylesheet">
+  <link href="../static/style.css" rel="stylesheet">
+</head>
+
+<body class="text-center">
+  <div class="container">
+    {% if session['username'] %}
+    <h1>Welcome {{ session['username'] }}</h1>
+    
+      {% if not session['room'] %}
+        {% if error %}
+        <p class="error"><strong>Error:</strong>{{ error }}<br>
+        {% endif %}
+        <b><a href = "{{ url_for('auth.logout') }}">click here to log out</a></b>
+        
+        <form class="form-signin" action="{{url_for('app.chat')}}" method="POST">
+          <h1 class="h2 mb-3 font-weight-normal">Create your room</h1><br><br>
+          <input type="text" id="create-room" name="create-room" class="form-control" placeholder="Room" required><br>
+          <p class="h2 mb-3 font-weight-normal">Password</p>
+          <input type="text" id="pass-create-room" name="pass-create-room" class="form-control" placeholder="password"><br>
+          <button class="btn btn-lg btn-primary btn-block" value="submit">Create Room</button>
+        </form>
+
+        <form class="form-signin" action="{{url_for('app.chat')}}" method="POST">
+          <h1 class="h2 mb-3 font-weight-normal">Join a room</h1><br><br>
+          <input type="text" id="join-room" name="join-room" class="form-control" placeholder="Room" required><br>
+          <p class="h2 mb-3 font-weight-normal">Password</p>
+          <input type="text" id="pass-join-room" name="pass-join-room" class="form-control" placeholder="Password"><br>
+          <button class="btn btn-lg btn-primary btn-block" value="submit">Join Room</button>
+        </form>
+      {% else %}
+        <b><a href = "{{ url_for('app.chat_room') }}">click here to return back to room</a></b>
+      {% endif %}
+    {% endif %}
+   
+    {% if not session['username'] %}
+      <b><a href = "{{ url_for('auth.login') }}">click here to login</a></b>
+    {% endif %}
+  </div>
+
+</body>
+
+</html>
