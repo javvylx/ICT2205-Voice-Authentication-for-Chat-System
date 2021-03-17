@@ -1,4 +1,3 @@
-
 Voice-Speech-Authentication/model/am/final.mdl
 Voice-Speech-Authentication/model/am/frame_subsampling_factor
 Voice-Speech-Authentication/model/am/tree
@@ -19,3 +18,5 @@ Voice-Speech-Authentication/model/ivector/splice.conf
 Voice-Speech-Authentication/model/README
 Voice-Speech-Authentication/model/rescore/G.carpa
 Voice-Speech-Authentication/model/rescore/G.fst
+﻿app/__pycache__
+.idea
