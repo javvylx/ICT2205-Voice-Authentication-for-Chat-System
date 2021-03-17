@@ -1,19 +1,13 @@
+import json
 import pyrebase
 from flask import render_template, request, redirect, session
 from app import app
 import os
 
-config = {
-    "apiKey": "AIzaSyAftEUeqo1r_Mb2F8TXWj2SfSVNa0qt-ss",
-    "authDomain": "ict2205pt2.firebaseapp.com",
-    "databaseURL": "https://ict2205pt2-default-rtdb.firebaseio.com",
-    "projectId": "ict2205pt2",
-    "storageBucket": "ict2205pt2.appspot.com",
-    "messagingSenderId": "541953920391",
-    "appId": "1:541953920391:web:50a639e519fea1d4315722"
-}
+with open('app/ict2205_configkey.json') as json_file:
+    apikey = json.load(json_file)
 
-firebase = pyrebase.initialize_app(config)
+firebase = pyrebase.initialize_app(apikey)
 auth = firebase.auth()
 
 @app.route('/')
