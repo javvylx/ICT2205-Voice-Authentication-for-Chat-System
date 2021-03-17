@@ -8,3 +8,4 @@ pandas
 silence_tensorflow
 vosk
 pydub
+firebase_admin
