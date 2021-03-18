@@ -32,8 +32,9 @@ To access webapp
     - Error handling / session management for chat room
 - Standalone Voice Authentication -- BH/KK (Integration in the process)
 - Integration with Firebase for login/registration
+- Receive voice input through browser
 
 ## TBD
 - Voice Authentication before entering room
-- Voice Chat capability in room
+- Voice Chat capability in room 
 - Encryption for both text message and voice message
