@@ -37,7 +37,7 @@ def write_audio(data):
     # Write a chunk of audio from the client
     idfile.writeframesraw(data)
 
-"""Client stop recording audio"""
+# """Client stop recording audio"""
 @socketio.on('end-recording')
 def end_recording():
     # Close wave file

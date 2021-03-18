@@ -1,13 +1,21 @@
+import json
+import pyrebase
 from flask import Flask
 # from flask_sqlalchemy import SQLAlchemy
 from flask_socketio import SocketIO
 from flask_session import Session
+
+with open('app/ict2205_configkey.json') as json_file:
+    apikey = json.load(json_file)
 
 # Initalising socketIO
 socketio = SocketIO()
 
 # init SQLAlchemy so we can use it later in our models
 # db = SQLAlchemy()
+
+firebase = pyrebase.initialize_app(apikey)
+fBaseAuth = firebase.auth()
 
 def create_app():
     app = Flask(__name__)
