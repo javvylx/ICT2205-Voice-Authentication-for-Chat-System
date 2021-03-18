@@ -30,11 +30,10 @@ To access webapp
     - Join chat room option
     - Password authentication to enter room (in plain text currently)
     - Error handling / session management for chat room
-- Standalone Voice Authentication -- BH/KK (To be integrated)
-- Standalone Login/Registration -- Javier (To be integrated)
+- Standalone Voice Authentication -- BH/KK (Integration in the process)
+- Integration with Firebase for login/registration
 
 ## TBD
-- Integration with Firebase for login/registration
 - Voice Authentication before entering room
 - Voice Chat capability in room
 - Encryption for both text message and voice message
