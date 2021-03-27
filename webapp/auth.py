@@ -59,7 +59,7 @@ def logout():
 # Route to handle register
 @auth.route('/register', methods=['GET', 'POST'])
 def register():
-    
+
     # to be done
     return None
     # error = None
@@ -67,6 +67,36 @@ def register():
     # if 'username' in session:
     #     return redirect(url_for('home'))
 
+    if (request.method == 'POST'):
+        email = request.form['name']
+        password = request.form['password']
+        fBaseAuth.create_user_with_email_and_password(email, password)
+        print (email)
+        """
+        @TODO
+        @BH Add upload voice to firebase here
+        """
+        from pathlib import Path
+        import os
+        from webapp import app
+        from voice_speech_authentication import server as vsauth
+        entries = os.listdir('webapp\\static\\_files')
+        # audio_file = app.return_idfile()
+        path = Path(os.path.join('webapp\\static\\_files\\',entries[0]))
+        root_path = path.parent.absolute()
+        audio_path = os.path.join(str(root_path),entries[0])
+        print (root_path)
+        speech = app.return_speech()
+        #speech = vsauth.speech_recognize(audio_path)
+        print("EMAIL: ", email)
+        vsauth.enroll(email, audio_path, speech)
+        # speech = vsauth.speech_recognize(audio_file)
+        print(speech)
+        entries = os.listdir('webapp\\static\\_files')
+        if len(entries) > 0:
+            for i in entries:
+                os.remove(os.path.join('webapp\\static\\_files\\', i))
+        return render_template('index.html')
     # if request.method == 'POST':
         
     #     if request.form['username'] != 'admin' or request.form['password'] != 'admin':

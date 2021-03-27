@@ -1,11 +1,11 @@
 import os
 import firebase_admin
-from firebase_admin import credentials, db
+import pyrebase
 import json
 import numpy as np
 from keras.models import load_model
-import parameters as p
-from feature_extraction import get_embedding, get_embeddings_from_list_file
+import voice_speech_authentication.parameters as p
+from voice_speech_authentication.feature_extraction  import get_embedding, get_embeddings_from_list_file
 from scipy.spatial.distance import cdist, euclidean, cosine
 from vosk import Model, KaldiRecognizer, SetLogLevel
 from pydub import AudioSegment
@@ -14,7 +14,13 @@ import argparse
 from silence_tensorflow import silence_tensorflow
 from pathlib import Path
 silence_tensorflow()
-cred = credentials.Certificate("ict2205pt2-firebase-adminsdk-z8i1z-33c71fcd00.json")
+
+def initialise_fdb():
+    with open('app/ict2205_configkey.json') as json_file:
+        apikey = json.load(json_file)
+    firebase = pyrebase.initialize_app(apikey)
+    db = firebase.database()
+    return db
 
 def speech_recognize(file):
     SetLogLevel(-1)
@@ -80,36 +86,37 @@ def enroll(name, file):
         print("Error processing the input audio file. Make sure the path.")
 
     try:
-        firebase_admin.initialize_app(cred, {
-            'databaseURL': 'https://ict2205pt2-default-rtdb.firebaseio.com/'
-        })
-        ref = db.reference("/")
-        ref.update(data)
+        print("Uploading to database")
+        db = initialise_fdb()
+        print("NAME: ",name)
+        db.child(name).set(data)
         print("Succesfully enrolled the user")
     except:
         print("Unable to save the user into the database.")
 
-def recognize(name, file):
+def recognize(email, file):
     """Recognize the input audio file by comparing to saved users' voice prints
         inputs: str (Path to audio file of unknown person to recognize)
         outputs: str (Name of the person recognized)"""
-    firebase_admin.initialize_app(cred, {
-        'databaseURL': 'https://ict2205pt2-default-rtdb.firebaseio.com/'
-    })
-    ref = db.reference("/")
+
+    db = initialise_fdb()
+    user = email.split("@")[0]
     try:
-        fb_data = ref.child(name).get()
+        fb_data = db.child(user).get()
     except:
-        print("Name does not exist!")
-    fb_speech = fb_data.get('Speech')
+        print("email does not exist!")
+    fb_speech = db.child(user).child('Speech').get().val()
     user_speech = speech_recognize(file)
+    print("FB_SPEECH: ",fb_speech)
+    print("USER_SPEECH: ", user_speech)
 
     if fb_data == None:
         print ("Voice does not exist!")
-        exit()
+        return False
+
     if fb_speech != user_speech:
         print ("Unknown speech! Please try again!")
-        exit()
+        return False
 
     print("Loading model weights from [{}]....".format(p.MODEL_FILE))
 
@@ -127,18 +134,30 @@ def recognize(name, file):
     test_result = get_embedding(model, file, p.MAX_SEC)
     test_embs = np.array(test_result.tolist())
 
-    # enroll_embs = np.load(os.path.join(p.EMBED_LIST_FILE, emb))
-    all_data = ref.get()
-    for key,value in all_data.items():
-            speaker = key
-            distance = euclidean(test_embs, value.get("NPY_file"))
-            distances.update({speaker: distance})
+
+    all_data = db.child().get()
+    for name in all_data.val():
+
+        speech_data = db.child(name).child("Speech").get().val()
+        if speech_data == user_speech:
+            print("NAME: ", name)
+            npy_data = db.child(name).child("NPY_file").get().val()
+            distance = euclidean(test_embs, npy_data)
+            distances.update({name: distance})
+
+
     if min(list(distances.values())) < p.THRESHOLD:
-        print("Recognized: ", min(distances, key=distances.get))
+        predicted_name = min(distances, key=distances.get)
+        print("Recognized: ", predicted_name)
     else:
         print("Could not identify the user, try enrolling again with a clear voice sample")
         print("Score: ", min(list(distances.values())))
-        exit()
+        return False
+
+    if predicted_name==user:
+        return True
+    else:
+        return False
 
 def args():
     parser = argparse.ArgumentParser()

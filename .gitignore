@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 
 Voice-Speech-Authentication/model/am/final.mdl
 Voice-Speech-Authentication/model/am/frame_subsampling_factor
@@ -19,3 +20,28 @@ Voice-Speech-Authentication/model/ivector/splice.conf
 Voice-Speech-Authentication/model/README
 Voice-Speech-Authentication/model/rescore/G.carpa
 Voice-Speech-Authentication/model/rescore/G.fst
+=======
+model/am/final.mdl
+model/am/frame_subsampling_factor
+model/am/tree
+/model/conf/mfcc.conf
+model/conf/model.conf
+model/graph/HCLG.fst
+model/graph/phones.txt
+model/graph/phones/word_boundary.int
+model/graph/words.txt
+model/ivector/final.dubm
+model/ivector/final.ie
+model/ivector/final.mat
+model/ivector/global_cmvn.stats
+model/ivector/ivector.conf
+model/ivector/mfcc.conf
+model/ivector/online_cmvn.conf
+model/ivector/splice.conf
+model/README
+model/rescore/G.carpa
+model/rescore/G.fst
+flask_session/*
+﻿app/__pycache__
+.idea
+>>>>>>> Stashed changes
