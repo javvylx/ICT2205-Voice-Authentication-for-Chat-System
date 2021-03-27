@@ -10,17 +10,53 @@ var analyserContext = null;
 var canvasWidth, canvasHeight;
 var socketio = io.connect(location.origin);
 
+function displaySpeech(string,list,list2){
+                console.log(string);
+                var result = "";
+                str1 = "Result is - ";
+                result = str1.concat(string);
+                console.log(result);
+                removeChild(list);
+                removeChild(list2);
+                $("#description").append("Record again if the speech result is a moot point ");
+                $("#result").append(result);
+                string = "";
+
+            }
+function displayRecording(string){
+                console.log(string);
+                $("#description").append(string);
+            }
+function removeChild(list){
+            while (list.hasChildNodes()) {
+            list.removeChild(list.firstChild);
+        }}
+
 // To toggle recording, send relevant emit back to server for start/stop
 function toggleRecording( e ) {
     console.log(e);
-    console.log("test");
+    console.log("toggled");
+    var description = document.getElementById("description");
+    var result = document.getElementById("result");
+
     if (e.classList.contains('recording')) {
-    console.log("stop");
+        console.log("stop");
         // stop recording
         e.classList.remove('recording');
         recording = false;
         socketio.emit('end-recording');
+        removeChild(description);
+        socketio.emit('confirmation');
+
+        $("#description").append("Processing");
+        socketio.on('confirmspeech', function(data) {
+                    displaySpeech(data,description,result);
+        });
+
     } else {
+        removeChild(description);
+        removeChild(result);
+        $("#description").append("Recording");
         // start recording
         e.classList.add('recording');
         recording = true;

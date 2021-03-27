@@ -2,6 +2,9 @@ import json
 import pyrebase
 from flask import render_template, request, redirect, session
 from app import app
+import voice_speech_authentication.parameters as p
+from vosk import Model, KaldiRecognizer, SetLogLevel
+from keras.models import load_model
 import os
 
 with open('app/ict2205_configkey.json') as json_file:
@@ -9,6 +12,15 @@ with open('app/ict2205_configkey.json') as json_file:
 
 firebase = pyrebase.initialize_app(apikey)
 auth = firebase.auth()
+
+class class_models:
+    def __init__(self, speech_model, voice_model):
+        self.speech_model = speech_model
+        self.voice_model = voice_model
+
+speech_model = Model("model")
+voice_model = load_model(p.MODEL_FILE)
+model = class_models(speech_model, voice_model)
 
 @app.route('/')
 @app.route('/index', methods=['GET', 'POST'])
