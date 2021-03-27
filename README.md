@@ -32,7 +32,7 @@ To access webapp
     - Join chat room option
     - Password authentication to enter room (in plain text currently)
     - Error handling / session management for chat room
-- Standalone Voice Authentication -- BH/KK (Integration in the process)
+- Standalone Voice Authentication -- BH/KK (~~Integration in the process~~ , Testing)
     - User can register with voice/speech
     - Voice and speech will be checked before creating/joining a room
     - All voice/speech data uploaded to firebase realtime database
