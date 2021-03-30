@@ -8,6 +8,7 @@ from flask_session import Session
 from . import socketio
 from pathlib import Path
 from voice_speech_authentication.server import speech_recognize, recognize
+import secrets
 
 app = Blueprint('app', __name__)
 
@@ -65,6 +66,7 @@ def chat():
                 existRm[room] = {}
                 existRm[room]['password'] = passwd
                 existRm[room]['numUser'] = 1
+                existRm[room]['aesKey'] = secrets.token_hex(32)
 
                 # Append username to online users in room
                 usersOnlineDisplayNames.append(session.get('email'))
@@ -137,7 +139,7 @@ def chat_room():
     if session.get('email') is None:
         return redirect(url_for('auth.login'))
 
-    return render_template('chat_room.html')
+    return render_template('chat_room.html', key=existRm[session['room']]['aesKey'])
 
 
 @socketio.on('join', namespace='/chat')
@@ -153,7 +155,7 @@ def join(message):
 def text(message):
     room = session.get('room')
     print(session)
-    emit('message', {'msg': session.get('email') + ' : ' + message['msg']}, room=room)
+    emit('message', {'email': session.get('email'), 'msg' : message['msg']}, room=room)
 
 
 @socketio.on('left', namespace='/chat')
