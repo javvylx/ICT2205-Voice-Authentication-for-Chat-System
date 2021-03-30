@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, copy_current_request_context, url_for
+from flask import Flask, render_template, session, request, copy_current_request_context, url_for
 from flask_socketio import SocketIO, emit, join_room, leave_room, close_room, rooms, disconnect
 import os
 import uuid
@@ -18,7 +18,9 @@ def index():
 
 @socketio.on('send')
 def send(data):
-    emit('voice', data, broadcast=True, include_self=False)
+    # emit('voice', data, broadcast=True, include_self=False)
+    emit('voice', data);
+
 
 if __name__ == '__main__':
     socketio.run(app)
