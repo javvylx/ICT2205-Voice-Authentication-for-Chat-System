@@ -18,9 +18,7 @@ def index():
 
 @socketio.on('send')
 def send(data):
-    # emit('voice', data, broadcast=True, include_self=False)
-    emit('voice', data);
-
+    emit('voice', data, broadcast=True, include_self=False)
 
 if __name__ == '__main__':
     socketio.run(app)
