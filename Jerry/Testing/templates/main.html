@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/crypto-js.js"></script>
+        <link rel="stylesheet" href="{{ url_for('static', filename='audio/styles.css') }}">
+    </head>
+    <body>
+        <div id="viz">
+            <canvas id="analyser" width="1024" height="500"></canvas>
+        </div>
+        <p><button id="start">Unmute</button>
+        <button id="stop">mute</button></p>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/3.1.3/socket.io.js"></script>
+        <script src="http://crypto-js.googlecode.com/svn/tags/3.1/build/components/lib-typedarrays.js"></script>
+<!--    Wavelength display JS-->
+        <script type="text/javascript" src="{{url_for('static',filename='audio/wave-resampler.js')}}" charset="utf-8"></script>
+        <script src="{{ url_for('static', filename='audio/queue.js') }}"></script>
+        <script src="{{ url_for('static', filename='audio/buffer.js') }}"></script>
+        <script src="{{ url_for('static', filename='audio/main.js') }}"></script>
+
+    </body>
+</html>
