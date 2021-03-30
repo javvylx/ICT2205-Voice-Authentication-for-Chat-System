@@ -18,7 +18,7 @@
             {{ umessage }}
           </div>
         {% endif %}
-        <form action="/create_account" method="post">
+        <form action="/register" method="post">
             <div class="form-group">
             <label for="exampleInputEmail1">Email address</label>
             <input type="email" class="form-control" name="name"  placeholder="Enter email">
@@ -28,6 +28,9 @@
             <input type="password" class="form-control" name="password" placeholder="Password">
             </div>
             <button type="submit" name="submit" class="btn btn-primary">Create</button>
+            <div id="controls">
+              <img id="record" src="{{ url_for('static', filename='audio/mic128.png') }}" onclick="toggleRecording(this);">
+            </div>
         </form>
      </div>
 
