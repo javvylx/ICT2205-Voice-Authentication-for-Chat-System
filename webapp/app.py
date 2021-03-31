@@ -158,6 +158,12 @@ def text(message):
     emit('message', {'email': session.get('email'), 'msg' : message['msg']}, room=room)
 
 
+@socketio.on('send', namespace='/chat')
+def send(data):
+    room = session.get('room')
+    emit('voice', data, room=room)
+
+
 @socketio.on('left', namespace='/chat')
 def left(message):
     room = session.get('room')
