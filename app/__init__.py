@@ -1,7 +1,8 @@
 import json
 import pyrebase
 from flask import Flask
-# from flask_sqlalchemy import SQLAlchemy
+import ssl
+from flask_cors import CORS
 from flask_socketio import SocketIO
 from flask_session import Session
 
@@ -39,6 +40,7 @@ def create_app():
     
 
     # Linking socketio with app
-    socketio.init_app(app,manage_session=False)
+    socketio.init_app(app,manage_session=False,cors_allowed_origins="*")
+    CORS(app)
 
     return app
