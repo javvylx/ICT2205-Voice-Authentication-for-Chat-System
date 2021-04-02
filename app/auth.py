@@ -3,12 +3,24 @@ import pyrebase
 from flask import Blueprint, render_template, redirect, url_for, request, session
 from flask_session import Session
 from . import fBaseAuth
+import voice_speech_authentication.parameters as p
+from vosk import Model, KaldiRecognizer, SetLogLevel
+from keras.models import load_model
 # from .helper import isAuthenticated
 # from helper import isAuthenticated
 
 
-
 auth = Blueprint('auth', __name__)
+
+
+class class_models:
+    def __init__(self, speech_model, voice_model):
+        self.speech_model = speech_model
+        self.voice_model = voice_model
+
+speech_model = Model("model")
+voice_model = load_model(p.MODEL_FILE)
+model = class_models(speech_model, voice_model)
 
 # Route to handle login
 @auth.route('/login', methods=['GET', 'POST'])
