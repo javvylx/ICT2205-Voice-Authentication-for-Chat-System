@@ -5,8 +5,7 @@
 
     <br/>
       <div class="jumbotron">
-        <h1 class="display-4">Hey</h1>
-        <p class="lead">Create an account, to use TeamEggFriedRice's Voice Auth System!</p>
+        <h1 class="display-4">TeamEggFriedRice Voice Auth System</h1>
         <hr class="my-4">
         {% if smessage %}
           <div class="alert alert-success">
@@ -18,7 +17,7 @@
             {{ umessage }}
           </div>
         {% endif %}
-        <form action="/register" method="post">
+        <form action="/index" method="post">
             <div class="form-group">
             <label for="exampleInputEmail1">Email address</label>
             <input type="email" class="form-control" name="name"  placeholder="Enter email">
@@ -27,13 +26,18 @@
             <label for="exampleInputPassword1">Password</label>
             <input type="password" class="form-control" name="password" placeholder="Password">
             </div>
-            <button type="submit" name="submit" class="btn btn-primary">Create</button>
-            <div id="controls">
-              <img id="record" src="{{ url_for('static', filename='audio/mic128.png') }}" onclick="toggleRecording(this);">
-                <div id="description"><p class="lead">Press the button to record</p></div>
-                  <div id="result"></div>
-            </div>
+            <button type="submit" name="submit" class="btn btn-primary">Submit</button>
         </form>
+
+        <div class="row">
+          <div class="col-sm">
+            <a href="/forgot_password" class="text-decoration-none">Forgot Password</a>
+          </div>
+          <div class="col-sm">
+            <a href="/create_account" class="text-decoration-none">Create Account</a>
+          </div>
+        </div>
+
      </div>
 
 {% endblock %}

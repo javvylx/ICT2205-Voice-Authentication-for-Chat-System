@@ -1,43 +1,19 @@
-{% extends "global.html" %}
-
-{% block content %}
-
-
-    <br/>
-      <div class="jumbotron">
-        <h1 class="display-4">TeamEggFriedRice Voice Auth System</h1>
-        <hr class="my-4">
-        {% if smessage %}
-          <div class="alert alert-success">
-            {{ smessage }}
-          </div>
+<html>
+  <head>
+    <title>Flask Intro - login page</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="static/bootstrap.min.css" rel="stylesheet" media="screen">
+  </head>
+  <body>
+    <div class="container">
+        {% if session['email'] %}
+            <h1>This is the main page, welcome {{ session['email'] }}</h1>
+            <li><a href="{{ url_for('auth.logout') }}">Log Out</a>
+        {% else %}
+            <h1>This is the main page</h1>
+            <li><a href="{{ url_for('auth.register') }}">Register</a>
+            <li><a href="{{ url_for('auth.login') }}">Log In</a>
         {% endif %}
-        {% if umessage %}
-          <div class="alert alert-danger">
-            {{ umessage }}
-          </div>
-        {% endif %}
-        <form action="/index" method="post">
-            <div class="form-group">
-            <label for="exampleInputEmail1">Email address</label>
-            <input type="email" class="form-control" name="name"  placeholder="Enter email">
-            </div>
-            <div class="form-group">
-            <label for="exampleInputPassword1">Password</label>
-            <input type="password" class="form-control" name="password" placeholder="Password">
-            </div>
-            <button type="submit" name="submit" class="btn btn-primary">Submit</button>
-        </form>
-
-        <div class="row">
-          <div class="col-sm">
-            <a href="/forgot_password" class="text-decoration-none">Forgot Password</a>
-          </div>
-          <div class="col-sm">
-            <a href="/create_account" class="text-decoration-none">Create Account</a>
-          </div>
-        </div>
-
-     </div>
-
-{% endblock %}
+    </div>
+  </body>
+</html>
