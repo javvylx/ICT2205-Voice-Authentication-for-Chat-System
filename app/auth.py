@@ -70,6 +70,7 @@ def register():
         try:
             fBaseAuth.create_user_with_email_and_password(email, password)
             print(email)
+            return render_template('index.html')
         except requests.exceptions.HTTPError as e:
           error_json = e.args[1]
           error = json.loads(error_json)['error']['message']

@@ -18,6 +18,7 @@
             {{ umessage }}
           </div>
         {% endif %}
+		 <h1 class="h1 mb-3 font-weight-normal">Record your voice with the microphone below for voice/speech authentication BEFORE user registeration</h1><br><br>
         <form action="/register" method="post">
             <div class="form-group">
             <label for="exampleInputEmail1">Email address</label>
@@ -32,6 +33,7 @@
         <p class="error"><strong>Error:</strong> {{ error }}
         {% endif %}	
             <div id="controls">
+			<br>
               <img id="record" src="{{ url_for('static', filename='audio/mic128.png') }}" onclick="toggleRecording(this);">
                 <div id="description"><p class="lead">Press the button to record</p></div>
                   <div id="result"></div>
