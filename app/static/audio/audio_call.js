@@ -187,7 +187,7 @@ async function main() {
                 var blob = new Blob(chunks, { 'type': 'audio/ogg; codecs=opus' });
                 const arrayBuffer = await new Response(blob).arrayBuffer();
                 console.log(arrayBuffer);
-                socket.emit('send', aesAudioEncryption(arrayBuffer, "253D3FB468A0E24677C28A624BE0F939"));
+                socket.emit('send', aesAudioEncryption(arrayBuffer, ekey));
                 chunks = [];
             }
             mediaRecorder.onstop = (ev) => {
@@ -210,7 +210,7 @@ async function main() {
 
     let source;
     socket.on('voice', function (byteArray) {
-        var audioData = aesAudioDecryption(byteArray, "253D3FB468A0E24677C28A624BE0F939");
+        var audioData = aesAudioDecryption(byteArray, ekey);
         const currentTime = getAudioContext().currentTime;
         source = getAudioContext().createBufferSource();
         let scriptNode = getAudioContext().createScriptProcessor(4096, 1, 1);
