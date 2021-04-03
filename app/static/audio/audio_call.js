@@ -68,7 +68,6 @@ function aesChatEncryption(input, key){
 }
 
 function aesChatDecryption(encryptedString, key){
-    console.log('{{key}}');
     console.log(encryptedString);
     var key  = CryptoJS.enc.Hex.parse(key);
     var iv   = CryptoJS.enc.Hex.parse("00000000000000000000000000000000");
