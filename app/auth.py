@@ -110,8 +110,15 @@ def register():
     
 @auth.route('/forgot_password', methods=['GET', 'POST'])
 def forgot_password():
+    error = None
     if (request.method == 'POST'):
-            email = request.form['name']
+     # Initalising an empty error msg
+        email = request.form['name']
+        try:
             fBaseAuth.send_password_reset_email(email)
+            print(email)    
             return render_template('index.html')
-    return render_template('forgetpwd.html')  
+        except requests.exceptions.HTTPError as e:
+         error_json = e.args[1]
+         error = json.loads(error_json)['error']['message']    
+    return render_template('forgetpwd.html', error = error)    
