@@ -21,3 +21,5 @@ model/rescore/G.fst
 flask_session/*
 ﻿app/__pycache__
 .idea
+app/__pycache__
+app_backup/__pycache__

@@ -8,7 +8,7 @@ import voice_speech_authentication.parameters as p
 from voice_speech_authentication.feature_extraction  import get_embedding, get_embeddings_from_list_file
 from scipy.spatial.distance import cdist, euclidean, cosine
 from vosk import Model, KaldiRecognizer, SetLogLevel
-from app.routes import model
+from app.auth import model
 from pydub import AudioSegment
 import wave
 import argparse
@@ -34,7 +34,7 @@ def speech_recognize(file):
     # sound = AudioSegment.from_wav(file)
     # sound = sound.set_channels(1)
 
-    entries = os.listdir('webapp\\static\\_files')
+    entries = os.listdir('app\\static\\_files')
     print("ENTRIES: ",entries)
     # sound.export("sound.wav", format="wav")
 

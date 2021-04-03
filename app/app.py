@@ -5,14 +5,10 @@ from flask import Blueprint, render_template, redirect, url_for, session, reques
 from flask_socketio import join_room, leave_room, emit
 from flask_session import Session
 # from .helper import isAuthenticated
-<<<<<<< HEAD:app/app.py
-from __init__ import socketio
-=======
 from . import socketio
 from pathlib import Path
 from voice_speech_authentication.server import speech_recognize, recognize
 import secrets
->>>>>>> 08a2879597a1f4f090308a7e0cf4567787996914:webapp/app.py
 
 app = Blueprint('app', __name__)
 
@@ -50,16 +46,16 @@ def chat():
         Need to add if statement to check for the return value 
         from voice validation function
         """
-        entries = os.listdir('webapp\\static\\_files')
+        entries = os.listdir('app\\static\\_files')
         # audio_file = app.return_idfile()
         try:
-            path = Path(os.path.join('webapp\\static\\_files\\', entries[0]))
+            path = Path(os.path.join('app\\static\\_files\\', entries[0]))
             root_path = path.parent.absolute()
             audio_path = os.path.join(str(root_path), entries[0])
             result = recognize(email=session.get('email'), file=audio_path)
             if len(entries) > 0:
                 for i in entries:
-                    os.remove(os.path.join('webapp\\static\\_files\\', i))
+                    os.remove(os.path.join('app\\static\\_files\\', i))
 
             # Checking if a room with same name exists and if voice/speech recgonition is successful
             if result == True and room not in existRm:
@@ -98,17 +94,17 @@ def chat():
         @BH Pefrom voice validation here, pref return true/false
         Add it to the existing if check directly below
         """
-        entries = os.listdir('webapp\\static\\_files')
+        entries = os.listdir('app\\static\\_files')
         # audio_file = app.return_idfile()
         try:
-            path = Path(os.path.join('webapp\\static\\_files\\', entries[0]))
+            path = Path(os.path.join('app\\static\\_files\\', entries[0]))
 
             root_path = path.parent.absolute()
             audio_path = os.path.join(str(root_path), entries[0])
             result = recognize(email=session.get('email'), file=audio_path)
             if len(entries) > 0:
                 for i in entries:
-                    os.remove(os.path.join('webapp\\static\\_files\\', i))
+                    os.remove(os.path.join('app\\static\\_files\\', i))
 
             # Check if room exist & password is correct
             if room in existRm and existRm[room]['password'] == passwd and result == True:
@@ -193,10 +189,10 @@ def left(message):
 
 @socketio.on('start-recording')
 def start_recording(options):
-    entries = os.listdir('webapp\\static\\_files')
+    entries = os.listdir('app\\static\\_files')
     if len(entries) > 0:
         for i in entries:
-            os.remove(os.path.join('webapp\\static\\_files\\', i))
+            os.remove(os.path.join('app\\static\\_files\\', i))
     id = uuid.uuid4().hex
     # Server-side filename
     global idfile
@@ -233,8 +229,8 @@ def end_recording():
 @socketio.on('confirmation')
 def confirm_recording():
     global speech
-    entries = os.listdir('webapp\\static\\_files')
-    path = Path(os.path.join('webapp\\static\\_files\\', entries[0]))
+    entries = os.listdir('app\\static\\_files')
+    path = Path(os.path.join('app\\static\\_files\\', entries[0]))
     root_path = path.parent.absolute()
     audio_path = os.path.join(str(root_path), entries[0])
     print("IDFILE: ", idfile)

@@ -1,26 +1,16 @@
 import json
 import pyrebase
 from flask import Flask
-# from flask_sqlalchemy import SQLAlchemy
+import ssl
+from flask_cors import CORS
 from flask_socketio import SocketIO
 from flask_session import Session
-from waitress import serve
 
-<<<<<<< HEAD
-with open('ict2205_configkey.json') as json_file:
+with open('app/ict2205_configkey.json') as json_file:
     apikey = json.load(json_file)
 
 # Initalising socketIO
 socketio = SocketIO()
-=======
-
-
-
-app = Flask(__name__)
-
-
-from app import routes
->>>>>>> 08a2879597a1f4f090308a7e0cf4567787996914
 
 # init SQLAlchemy so we can use it later in our models
 # db = SQLAlchemy()
@@ -40,20 +30,17 @@ def create_app():
     # db.init_app(app)
 
     # blueprint for auth routes in our app
-    from auth import auth as auth_blueprint
+    from .auth import auth as auth_blueprint
     app.register_blueprint(auth_blueprint)
 
     # blueprint for non-auth parts of app
-    from app import app as app_blueprint
+    from .app import app as app_blueprint
     app.register_blueprint(app_blueprint)
 
     
 
     # Linking socketio with app
-    socketio.init_app(app,manage_session=False)
+    socketio.init_app(app,manage_session=False,cors_allowed_origins="*")
+    CORS(app)
 
-    serve(app, host='127.0.0.1', port=5000, url_scheme='https')
     return app
-
-if __name__ == '__main__':
-    create_app().run

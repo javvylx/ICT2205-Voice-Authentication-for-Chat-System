@@ -2,13 +2,25 @@ import json
 import pyrebase
 from flask import Blueprint, render_template, redirect, url_for, request, session
 from flask_session import Session
-from __init__ import fBaseAuth
+from . import fBaseAuth
+import voice_speech_authentication.parameters as p
+from vosk import Model, KaldiRecognizer, SetLogLevel
+from keras.models import load_model
 # from .helper import isAuthenticated
 # from helper import isAuthenticated
 
 
-
 auth = Blueprint('auth', __name__)
+
+
+class class_models:
+    def __init__(self, speech_model, voice_model):
+        self.speech_model = speech_model
+        self.voice_model = voice_model
+
+speech_model = Model("model")
+voice_model = load_model(p.MODEL_FILE)
+model = class_models(speech_model, voice_model)
 
 # Route to handle login
 @auth.route('/login', methods=['GET', 'POST'])
@@ -95,11 +107,11 @@ def register():
         """
         from pathlib import Path
         import os
-        from webapp import app
+        from app import app
         from voice_speech_authentication import server as vsauth
-        entries = os.listdir('webapp\\static\\_files')
+        entries = os.listdir('app\\static\\_files')
         # audio_file = app.return_idfile()
-        path = Path(os.path.join('webapp\\static\\_files\\', entries[0]))
+        path = Path(os.path.join('app\\static\\_files\\', entries[0]))
         root_path = path.parent.absolute()
         audio_path = os.path.join(str(root_path), entries[0])
         print(root_path)
@@ -109,10 +121,11 @@ def register():
         vsauth.enroll(email, audio_path, speech)
         # speech = vsauth.speech_recognize(audio_file)
         print(speech)
-        entries = os.listdir('webapp\\static\\_files')
+        entries = os.listdir('app\\static\\_files')
         if len(entries) > 0:
             for i in entries:
-                os.remove(os.path.join('webapp\\static\\_files\\', i))
+                os.remove(os.path.join('app\\static\\_files\\', i))
         return render_template('index.html')
+
 
     return render_template('create_account.html')
