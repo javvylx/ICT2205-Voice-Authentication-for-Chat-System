@@ -28,6 +28,9 @@
             <input type="password" class="form-control" name="password" placeholder="Password">
             </div>
             <button type="submit" name="submit" class="btn btn-primary">Create</button>
+		{% if error %}
+        <p class="error"><strong>Error:</strong> {{ error }}
+        {% endif %}	
             <div id="controls">
               <img id="record" src="{{ url_for('static', filename='audio/mic128.png') }}" onclick="toggleRecording(this);">
                 <div id="description"><p class="lead">Press the button to record</p></div>

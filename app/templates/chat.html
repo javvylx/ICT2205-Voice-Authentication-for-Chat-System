@@ -1,11 +1,12 @@
+{% extends "global.html" %}
+
+{% block content %}
+
 <!doctype html>
 <html lang="en">
 <head>
-  <title>Flask Intro - login page</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!--Link to CSS -->
-  <link href="../static/bootstrap.min.css" rel="stylesheet">
-  <link href="../static/style.css" rel="stylesheet">
+	<meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests"> 
 
 </head>
 
@@ -57,3 +58,5 @@
 </body>
 
 </html>
+
+{% endblock %}

@@ -1,23 +1,47 @@
-<html>
-  <head>
-    <title>Flask Intro - login page</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="static/bootstrap.min.css" rel="stylesheet" media="screen">
-  </head>
-  <body>
-    <div class="container">
-      <h1>Please login</h1>
-      <br>
-      <form action="" method="post">
-        <input type="text" placeholder="Username" name="username" value="{{
+{% extends "global.html" %}
+
+{% block content %}
+
+    <br/>
+      <div class="jumbotron">
+        <h1 class="display-4">TeamEggFriedRice Voice Auth System</h1>
+        <hr class="my-4">
+        {% if smessage %}
+          <div class="alert alert-success">
+            {{ smessage }}
+          </div>
+        {% endif %}
+        {% if umessage %}
+          <div class="alert alert-danger">
+            {{ umessage }}
+          </div>
+        {% endif %}
+        <form action="" method="post">
+            <div class="form-group">
+            <label for="exampleInputEmail1">Email address</label>
+		  <input type="text" class="form-control" placeholder="Username" name="username" value="{{
           request.form.username }}">
-         <input type="password" placeholder="Password" name="password" value="{{
+            </div>
+            <div class="form-group">
+            <label for="exampleInputPassword1">Password</label>
+		  <input type="password" class="form-control" placeholder="Password" name="password" value="{{
           request.form.password }}">
-        <input class="btn btn-default" type="submit" value="Login">
-      </form>
-      {% if error %}
+            </div>
+            <button type="submit" name="submit" class="btn btn-primary">Submit</button>
+        </form>
+		{% if error %}
         <p class="error"><strong>Error:</strong> {{ error }}
-      {% endif %}
-    </div>
-  </body>
-</html>
+        {% endif %}
+
+        <div class="row">
+          <div class="col-sm">
+            <a href="/forgot_password" class="text-decoration-none">Forgot Password</a>
+          </div>
+          <div class="col-sm">
+            <a href="/register" class="text-decoration-none">Create Account</a>
+          </div>
+        </div>
+
+     </div>
+
+{% endblock %}

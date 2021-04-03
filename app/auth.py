@@ -1,4 +1,5 @@
 import json
+import requests
 import pyrebase
 from flask import Blueprint, render_template, redirect, url_for, request, session
 from flask_session import Session
@@ -99,7 +100,14 @@ def register():
     if (request.method == 'POST'):
         email = request.form['name']
         password = request.form['password']
-        fBaseAuth.create_user_with_email_and_password(email, password)
+        
+        try:
+            fBaseAuth.create_user_with_email_and_password(email, password)
+            print(email)
+        except requests.exceptions.HTTPError as e:
+          error_json = e.args[1]
+          error = json.loads(error_json)['error']['message']
+        
         print(email)
         """
         @TODO
@@ -125,7 +133,15 @@ def register():
         if len(entries) > 0:
             for i in entries:
                 os.remove(os.path.join('app\\static\\_files\\', i))
-        return render_template('index.html')
+        return render_template('create_account.html', error = error)
 
 
     return render_template('create_account.html')
+    
+@auth.route('/forgot_password', methods=['GET', 'POST'])
+def forgot_password():
+    if (request.method == 'POST'):
+            email = request.form['name']
+            fBaseAuth.send_password_reset_email(email)
+            return render_template('index.html')
+    return render_template('forgetpwd.html')  

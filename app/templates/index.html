@@ -1,19 +1,25 @@
+{% extends "global.html" %}
+
+{% block content %}
+
 <html>
   <head>
-    <title>Flask Intro - login page</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="static/bootstrap.min.css" rel="stylesheet" media="screen">
   </head>
   <body>
     <div class="container">
         {% if session['email'] %}
+			<h1> This is an SIT ICT2205 Project </h1>
             <h1>This is the main page, welcome {{ session['email'] }}</h1>
             <li><a href="{{ url_for('auth.logout') }}">Log Out</a>
         {% else %}
-            <h1>This is the main page</h1>
+            <h1>This is an SIT ICT2205 Cryptography Project</h1>
             <li><a href="{{ url_for('auth.register') }}">Register</a>
             <li><a href="{{ url_for('auth.login') }}">Log In</a>
         {% endif %}
     </div>
   </body>
 </html>
+
+{% endblock %}
