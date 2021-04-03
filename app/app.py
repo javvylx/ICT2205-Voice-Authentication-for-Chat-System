@@ -40,12 +40,6 @@ def chat():
         room = request.form['create-room']
         passwd = request.form['pass-create-room']
 
-        """    
-        @TODO
-        BH Pefrom voice validation here, pref return true/false.
-        Need to add if statement to check for the return value 
-        from voice validation function
-        """
         entries = os.listdir('app\\static\\_files')
         # audio_file = app.return_idfile()
         try:
@@ -89,11 +83,6 @@ def chat():
         room = request.form['join-room']
         passwd = request.form['pass-join-room']
 
-        """
-        @TODO
-        @BH Pefrom voice validation here, pref return true/false
-        Add it to the existing if check directly below
-        """
         entries = os.listdir('app\\static\\_files')
         # audio_file = app.return_idfile()
         try:
@@ -208,10 +197,6 @@ def start_recording(options):
     # Set frame rate
     wf.setframerate(options.get('fps', 44100))
     idfile = wf
-
-
-""""""
-
 
 @socketio.on('write-audio')
 def write_audio(data):

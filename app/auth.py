@@ -41,44 +41,10 @@ def login():
         try:
             userInfo = fBaseAuth.sign_in_with_email_and_password(email, password)
             accInfo = fBaseAuth.get_account_info(userInfo['idToken'])
-            #user_id = auth.get_account_info(user['idToken'])
-            #session['penis'] = user_id 
-            # TO DO later????
-            # Session Handling
-            # print(accInfo['users'][0]['email'])
             session['email'] = accInfo['users'][0]['email']
-            # session['email'] = fBaseAuth.get_account_info(user['email'])
-            # fBaseAuth.get_account_info()
-            # print(user)
-            # print(fBaseAuth.get_account_info(user['idToken']))
-            # print(session)
             return redirect(url_for('app.chat'))
         except:
             error = 'Please check your credentials'
-            # return render_template('index.html', umessage=unsuccessful)
-
-        # if request.form['username'] != 'admin' or request.form['password'] != 'admin':
-            
-        #     # Return error message
-        #     error = 'Invalid Credentials. Please try again.'
-        
-        # else:
-            
-        #     # Create a session for the user
-        #     session['username'] = request.form['username']
-        #     print(session)
-        #     return redirect(url_for('app.chat'))
-    
-        # if request.form['username'] != 'qwe' or request.form['password'] != 'qwe':
-            
-        #     # Return error message
-        #     error = 'Invalid Credentials. Please try again.'
-        
-        # else:
-            
-        #     # Create a session for the user
-        #     session['username'] = request.form['username']
-        #     return redirect(url_for('app.chat'))
 
     return render_template('login.html', error = error)
 
