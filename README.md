@@ -11,7 +11,7 @@ https://www.sitict2205tefr.ga/
 - Chat room capabilities
     - Create chat room option
     - Join chat room option
-    - Password authentication to enter room (in plain text currently)
+    - Password authentication to enter room 
     - Error handling / session management for chat room
 - Room Management
     - Unique room
