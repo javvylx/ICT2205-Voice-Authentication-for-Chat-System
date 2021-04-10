@@ -4,6 +4,8 @@
 
 https://www.sitict2205tefr.ga/
 
+<a href="http://www.youtube.com/watch?feature=player_embedded&v=Mo9DIKBwglE" target="_blank"><img src="https://i9.ytimg.com/vi/Mo9DIKBwglE/mqdefault.jpg?time=1618074600000&sqp=COi3x4MG&rs=AOn4CLAqVUdI93EDRQHJsxDPN_S8PKRDJg" alt="ICT2205 - TeamEggFriedRice Voice Authentication System" width="240" height="180" border="10" /></a>
+
 ## What is done
 - Basic Flask infrastructure
     - Local login 
