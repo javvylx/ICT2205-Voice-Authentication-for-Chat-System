@@ -1,4 +1,4 @@
-# SIT ICT 2205 (Applied Cryptography) - 
+# SIT ICT 2205 (Applied Cryptography)
 
 ## Flask-based Voice Authentication for Chat System 
 
