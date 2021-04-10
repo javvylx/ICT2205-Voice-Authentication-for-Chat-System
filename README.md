@@ -1,6 +1,6 @@
-# ict2205-crypto_pt2
+# SIT ICT 2205 (Applied Cryptography) - 
 
-## Flask-based Chat service 
+## Flask-based Voice Authentication for Chat System 
 
 https://www.sitict2205tefr.ga/
 
