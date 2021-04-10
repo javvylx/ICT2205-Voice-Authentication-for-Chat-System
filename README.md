@@ -27,7 +27,9 @@ https://www.sitict2205tefr.ga/
     - Able to encrypt and decrypt audio chunks and message data
 - Integration with Firebase for login/registration
 - Receive voice input through browser
-- Cloud deployment with flask integration
+- Cloud deployment
+    - SSL/TLS deployment
+    - Flask deployment
 
 ## Things to note
 - VOSK model is not included within the repository
