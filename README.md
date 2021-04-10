@@ -32,6 +32,6 @@ https://www.sitict2205tefr.ga/
 ## Things to note
 - VOSK model is not included within the repository
     - The model can be found in [here](https://alphacephei.com/vosk/models).
-    - [![VOSK Model]](https://ibb.co/r3sHyQJ)
+    - ![VOSK Model](https://i.ibb.co/xYH652Q/unknown.png)
 
 
